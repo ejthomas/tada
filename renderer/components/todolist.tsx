@@ -1,5 +1,3 @@
-import {UUID} from "crypto";
-
 type TodoListProps = {
   todos: ItemData[];
 };
@@ -16,8 +14,8 @@ export const TodoList = ({ todos }: TodoListProps) => {
   );
 }
 
-type ItemData = {
-  id: UUID;
+export type ItemData = {
+  id: string;
   is_completed: boolean;
   title: string;
 };

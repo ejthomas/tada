@@ -1,9 +1,23 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import { ItemData } from "./todolist";
 
-const Form = () => {
+type Props = {
+  setTodos: Dispatch<SetStateAction<ItemData[]>>;
+};
+
+const Form = ({ setTodos }: Props) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     // Prevent page reload on form submit
     event.preventDefault();
+
+    // Get name of new todo from submitted form
+    const value: string = event.currentTarget.todo.value;
+
+    // Update app state with new todo
+    setTodos((prevTodos: ItemData[]) => [
+      ...prevTodos,
+      { title: value, id: self.crypto.randomUUID(), is_completed: false},
+    ]);
 
     // Reset form
     event.currentTarget.reset();
