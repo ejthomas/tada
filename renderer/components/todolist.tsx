@@ -90,8 +90,19 @@ const TodoItem = ({ item, setTodos }: TodoItemProps) => {
       ) : (
         <>
           <button className="todo_items_left">
-            <svg fill={item.is_completed ? "#22C55E" : "#0d0d0d"}>
-              <circle cx="10" cy="10" fillRule="nonzero" r="10" />
+            <svg 
+              clipRule="evenodd"
+              fillRule="evenodd"
+              strokeLinejoin="round"
+              strokeMiterlimit="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              width={34}
+              height={34}
+              stroke="#22C55E"
+              fill={item.is_completed ? "#22C55E" : "#0d0d0d"}
+            >
+              <circle cx="12" cy="12" fillRule="nonzero" r="9.9" />
             </svg>
             <p style={item.is_completed ? { textDecoration: "line-through" } : {}}>{item?.title}</p>
           </button>
