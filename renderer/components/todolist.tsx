@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 type TodoListProps = {
   todos: ItemData[];
@@ -30,37 +30,83 @@ type TodoItemProps = {
 };
 
 const TodoItem = ({ item, setTodos }: TodoItemProps) => {
+  const [editing, setEditing] = React.useState<boolean>(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const completeTodo = () => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
+    setTodos((prevTodos: ItemData[]) =>
+      prevTodos.map((todo: ItemData) =>
         todo.id === item.id
           ? {...todo, is_completed: !todo.is_completed }
           : todo
       )
     );
   };
+  const handleEdit = () => {
+    setEditing(true);
+  };
+  React.useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
+      // Put cursor at end of current text
+      inputRef.current.setSelectionRange(
+        inputRef.current.value.length,
+        inputRef.current.value.length
+      );
+    }
+  }, [editing]);
+  const handleInputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setEditing(false);
+  };
+  const handleInputBlur = () => {
+    setEditing(false);
+  };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTodos((prevTodos: ItemData[]) => 
+      prevTodos.map((todo: ItemData) =>
+        todo.id === item.id ? { ...todo, title: event.target.value } : todo
+      )
+    );
+  };
+  const handleDelete = () => {
+    setTodos((prevTodos: ItemData[]) => prevTodos.filter((todo: ItemData) => todo.id !== item.id));
+  };
   return (
     <li id={item?.id} className="todo_item" onClick={completeTodo}>
-      <button className="todo_items_left">
-        <svg fill={item.is_completed ? "#22C55E" : "#0d0d0d"}>
-          <circle cx="10" cy="10" fillRule="nonzero" r="10" />
-        </svg>
-        <p style={item.is_completed ? { textDecoration: "line-through" } : {}}>{item?.title}</p>
-      </button>
-      <div className="todo_items_right">
-        <button>
-          <span className="visually-hidden">Edit</span>
-          <svg>
-            <path d="" />
-          </svg>
-        </button>
-        <button>
-          <span className="visually-hidden">Delete</span>
-          <svg>
-            <path d="" />
-          </svg>
-        </button>
-      </div>
+      {editing ? (
+        <form className="edit-form" onSubmit={handleInputSubmit}>
+          <label htmlFor="edit-todo">
+            <input
+              ref={inputRef}
+              type="text"
+              name="edit-todo"
+              id="edit-todo"
+              defaultValue={item?.title}
+              onBlur={handleInputBlur}
+              onChange={handleInputChange}
+            />
+          </label>
+        </form>
+      ) : (
+        <>
+          <button className="todo_items_left">
+            <svg fill={item.is_completed ? "#22C55E" : "#0d0d0d"}>
+              <circle cx="10" cy="10" fillRule="nonzero" r="10" />
+            </svg>
+            <p style={item.is_completed ? { textDecoration: "line-through" } : {}}>{item?.title}</p>
+          </button>
+          <div className="todo_items_right">
+            <button onClick={handleEdit}>
+              <span className="visually-hidden">Edit</span>
+              <p>Edit</p>
+            </button>
+            <button onClick={handleDelete}>
+              <span className="visually-hidden">Delete</span>
+              <p>Delete</p>
+            </button>
+          </div>
+        </>
+      )}
     </li>
   );
 };
