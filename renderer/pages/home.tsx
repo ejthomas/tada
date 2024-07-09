@@ -8,13 +8,13 @@ import { TodoList, ItemData } from "@/renderer/components/todolist";
 
 export default function HomePage() {
   const [todos, setTodos] = React.useState<ItemData[]>([
-    { title: "Some task", id: self.crypto.randomUUID(), is_completed: false },
+    { title: "Some task", id: crypto.randomUUID(), is_completed: false },
     {
       title: "Some other task",
-      id: self.crypto.randomUUID(),
+      id: crypto.randomUUID(),
       is_completed: true,
     },
-    { title: "last task", id: self.crypto.randomUUID(), is_completed: false },
+    { title: "last task", id: crypto.randomUUID(), is_completed: false },
   ]);
   const todos_completed: number = todos.filter(
     (item) => item.is_completed === true
@@ -29,7 +29,7 @@ export default function HomePage() {
         <Header />
         <Summary todos_completed={todos_completed} total_todos={total_todos} />
         <Form setTodos={setTodos} />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} setTodos={setTodos}/>
       </div>
     </React.Fragment>
   );

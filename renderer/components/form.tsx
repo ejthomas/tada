@@ -16,7 +16,7 @@ const Form = ({ setTodos }: Props) => {
     // Update app state with new todo
     setTodos((prevTodos: ItemData[]) => [
       ...prevTodos,
-      { title: value, id: self.crypto.randomUUID(), is_completed: false},
+      { title: value, id: crypto.randomUUID(), is_completed: false},
     ]);
 
     // Reset form

@@ -137,12 +137,12 @@ header {
   height: calc(100% - 12px);
   border: transparent;
 }
-.todo_done,
+.todo_items_left,
 .todo_items_right {
   display: flex;
   align-items: center;
 }
-.todo_done {
+.todo_items_left {
   background-color: transparent;
   border: none;
   color: #fff;
