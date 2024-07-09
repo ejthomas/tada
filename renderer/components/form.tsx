@@ -1,11 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { ItemData } from "./todolist";
 
 type Props = {
   setTodos: Dispatch<SetStateAction<ItemData[]>>;
 };
 
-const Form = ({ setTodos }: Props) => {
+export const Form = ({ setTodos }: Props) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     // Prevent page reload on form submit
     event.preventDefault();
@@ -46,7 +45,11 @@ const Form = ({ setTodos }: Props) => {
           height={32}
         >
           <path
-            d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
+            d="m11
+               11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0
+               .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414
+               0
+               .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
             fillRule="nonzero"
           />
         </svg>
@@ -54,5 +57,3 @@ const Form = ({ setTodos }: Props) => {
     </form>
   );
 }
-
-export default Form;

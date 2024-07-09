@@ -17,4 +17,9 @@ const handler = {
 
 contextBridge.exposeInMainWorld('ipc', handler)
 
+contextBridge.exposeInMainWorld('electron', {
+  getStoreValue: async () => ipcRenderer.invoke("getStoreValue"),
+  setStoreValue: async (value: ItemData[]) => ipcRenderer.invoke("setStoreValue", value),
+})
+
 export type IpcHandler = typeof handler

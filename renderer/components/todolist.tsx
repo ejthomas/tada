@@ -17,12 +17,6 @@ export const TodoList = ({ todos, setTodos }: TodoListProps) => {
   );
 }
 
-export type ItemData = {
-  id: string;
-  is_completed: boolean;
-  title: string;
-};
-
 type TodoItemProps = {
   key: number;
   item: ItemData;
